@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   Editor,
   EditorState,
@@ -11,14 +11,27 @@ import { MdUndo, MdRedo } from "react-icons/md";
 import { GoListUnordered, GoListOrdered, GoBold } from "react-icons/go";
 import { FiItalic } from "react-icons/fi";
 import { BsTypeUnderline } from "react-icons/bs";
+import { ImSpellCheck } from "react-icons/im";
 
 import "draft-js/dist/Draft.css";
 import "./RichText.css";
 
+var initialDraft;
+if (document.getElementById("para") != null){
+initialDraft = document.getElementById("para").firstElementChild.innerHTML;
+}
+else if (initialDraft = localStorage.getItem("unsavedDraft") != null)
+{
+  initialDraft = localStorage.getItem("unsavedDraft");
+}
+else {
+  initialDraft = "<p><br></p>";
+}
+
 class RichTextEditor extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { editorState: EditorState.createEmpty(), showHTML: false };
+    this.state = { editorState: EditorState.createWithContent(stateFromHTML(initialDraft)) };
 
     this.focus = () => this.refs.editor.focus();
     this.onChange = (editorState) => this.setState({ editorState });
@@ -71,15 +84,6 @@ class RichTextEditor extends React.Component {
     this.onChange(EditorState.redo(this.state.editorState));
   }
 
-  isEnabled = () => {
-    this.setState({
-      showHTML: !this.state.showHTML,
-    });
-  }
-  // handleClick: function() {
-  //   this.setState({
-  //     condition: !this.state.condition
-  //   });
 
   render() {
     const { editorState } = this.state;
@@ -93,21 +97,35 @@ class RichTextEditor extends React.Component {
         className += " RichEditor-hidePlaceholder";
       }
     }
+
     let html = stateToHTML(contentState);
-    let draftNum = 2;
-    if (html !== "<p><br></p>") {
-      localStorage.setItem(`currentDraft${draftNum}`, html);
-      // localStorage.setItem(`currentDraft${draftNum}`, html);
-    localStorage.setItem("rawCurrentDraft", contentState);
-}
-    const currentDraft = localStorage.getItem(`currentDraft${draftNum}`);
-    // console.log("str= ", html);
-    // console.log("raw_str= ", fromHtml);
+
+      localStorage.setItem("unsavedDraft", html);
+
+      function HasID () {
+      // let myDraft;
+      // for (var j = 0; j < 200; j++) {
+      //   myDraft = localStorage.getItem(`currentDraft` + j);
+      //   if (myDraft == null) {
+      //        localStorage.setItem(`currentDraft` + j, html);
+      //        console.log("saving Draft: " + localStorage.getItem(`currentDraft` + j));
+      //        localStorage.setItem("unsavedDraft", localStorage.getItem(`currentDraft` + j));
+      //        localStorage.setItem("savedDraft", localStorage.getItem(`currentDraft` + j));
+      //        window.location.reload();
+      //        break;
+      //   }
+      // }
+      localStorage.setItem("savedDraft", html);
+      window.location.reload();
+
+    }
 
     return (
       <>
-        <WholeArticle input={currentDraft} />
+        {/* <WholeArticle /> */}
+        <button className="save-button" onClick={HasID}>OK</button>
         <div className="RichEditor-root">
+          <div className="control-panel">
           <BlockStyleControls
             editorState={editorState}
             onToggle={this.toggleBlockType}
@@ -122,6 +140,10 @@ class RichTextEditor extends React.Component {
           <button className="do-button" onClick={this.onClickUn.bind(this)} title="Undo">
             <MdUndo size="20" />
           </button>
+          <button className="do-button" style={{color:"black"}}>
+            <ImSpellCheck size="20" />
+          </button>
+          </div>
           <div className={className} onClick={this.focus}>
             <Editor
               blockStyleFn={getBlockStyle}
@@ -134,6 +156,8 @@ class RichTextEditor extends React.Component {
               ref="editor"
               spellCheck={false}
             />
+          <button style={{position:"relative", float:"right", bottom:"-20px"}} onClick={HasID}>OK</button>
+
           </div>
         </div>
       <ShowMeHTML inp={html} />
@@ -192,10 +216,10 @@ const BLOCK_TYPES = [
   { label: "H4", style: "header-four" },
   { label: "H5", style: "header-five" },
   { label: "H6", style: "header-six" },
-  { label: <GoListUnordered className="control-icon" size="18" />, style: "unordered-list-item", key: "Unordered list" },
-  { label: <GoListOrdered className="control-icon" size="18" />, style: "ordered-list-item", key: "Ordered list" },
+  { label: <GoListUnordered className="control-icon" size="18" />, style: "unordered-list-item", key: "Bulleted list, indent with Tab" },
+  { label: <GoListOrdered className="control-icon" size="18" />, style: "ordered-list-item", key: "Ordered list, indent with Tab" },
   { label: "Blockquote", style: "blockquote" },
-  { label: "Code Block", style: "code-block" },
+  { label: "Code", style: "code-block" },
 ];
 
 const BlockStyleControls = (props) => {
@@ -253,14 +277,10 @@ function ShowMeHTML (props) {
 
   return (<div id="html-box">
         <button onClick={() => !isShow ? setShow(true) : setShow(false)}>{!isShow ? "Show HTML code" : "Hide HTML code"}</button>
-        <div id="raw-html" className="show-html show-raw-html" inp={props.inp}>{isShow ? props.inp : null}</div>
+        <div id="raw-html" className="show-html show-raw-html" inp={props.inp} contenteditable="true">{isShow ? props.inp : null}</div>
         </div>
   );
 }
-function WholeArticle (props) {
-  return (
-  <div id="finished-article" className="show-html" dangerouslySetInnerHTML={{ __html: props.input }}></div>
 
-)};
 
 export default RichTextEditor;

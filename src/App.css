@@ -1,3 +1,25 @@
 .App {
   text-align: center;
 }
+
+#para {
+  text-align: left;
+  margin:auto;
+  width: 600px;
+}
+
+code {
+  white-space: pre;
+}
+
+.edit-paragraph-button {
+  margin: 15px 15px 15px 15px;
+}
+
+
+
+@media only screen and (max-width: 650px) {
+#para {
+  width: 300px;
+}
+}
