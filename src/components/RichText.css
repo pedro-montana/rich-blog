@@ -1,175 +1,263 @@
+button {
+  outline:none;
+}
+
 .RichEditor-root {
   width: 600px;
-    background: #fff;
-    border: 2px solid #d9d9d9;
-    border-radius: 8px;
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
-    font-size: 14px;
-    padding: 15px;
-    margin: auto;
+  background: #fff;
+  border: 2px solid #d9d9d9;
+  border-radius: 8px;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
+    sans-serif;
+  font-size: 14px;
+  padding: 15px;
+  margin: auto;
+}
+
+.RichEditor-editor {
+  /* border-top: 1px solid #ddd; */
+  cursor: text;
+  font-size: 16px;
+  margin-top: 10px;
+}
+
+.RichEditor-editor .public-DraftEditorPlaceholder-root,
+.RichEditor-editor .public-DraftEditor-content {
+  margin: 0 -15px -15px;
+  padding: 15px;
+}
+
+.RichEditor-editor .public-DraftEditor-content {
+  min-height: 200px;
+}
+
+.RichEditor-hidePlaceholder .public-DraftEditorPlaceholder-root {
+  display: none;
+}
+
+.RichEditor-editor .RichEditor-blockquote {
+  border-left: 5px solid #eee;
+  color: #666;
+  font-family: "Hoefler Text", "Georgia", serif;
+  font-style: italic;
+  margin: 16px 0;
+  padding: 10px 20px;
+}
+
+.RichEditor-editor .public-DraftStyleDefault-pre {
+  background-color: rgba(0, 0, 0, 0.05);
+  font-family: "Inconsolata", "Menlo", "Consolas", monospace;
+  font-size: 16px;
+  padding: 20px;
+}
+
+.RichEditor-controls {
+  font-family: "Helvetica", sans-serif;
+  font-size: 14px;
+  margin-bottom: 5px;
+  user-select: none;
+  text-align: left;
+}
+
+.RichEditor-styleButton {
+  color: #404040;
+  cursor: pointer;
+  margin-right: 16px;
+  padding: 2px 0;
+  display: inline-block;
+}
+
+.RichEditor-styleButton:hover {
+  color: #93b0ec;
+}
+
+.RichEditor-activeButton {
+  color: #3c71dd;
+  font-weight: bold;
+}
+.RichEditor-activeButton:hover {
+  color: #6791e4;
+}
+.do-button {
+  position: relative;
+  float: right;
+  top: -25px;
+  margin-right: 10px;
+  color: #666;
+  background-color: inherit;
+  border-radius: 7px;
+  border: none;
+  cursor: pointer;
+}
+
+.do-button:hover {
+  color: #93b0ec;
+}
+
+.do-button:active {
+  color: #3c71dd;
+}
+
+.show-html {
+  width: 600px;
+  /* text-align: center; */
+  margin: auto;
+  text-align: left;
+}
+
+.control-icon {
+  margin-bottom: -5px;
+}
+
+.control-icon-underline {
+  margin-bottom: -5px;
+}
+
+.show-raw-html {
+  text-align: left;
+  margin-top: 15px;
+  margin-bottom: 15px;
+  border: 1px solid #ddd;
+  min-height: 100px;
+  white-space: pre-wrap;
+  font-size: 15px;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
+    sans-serif;
+}
+
+#html-box {
+  margin-top: 15px;
+  margin-bottom: 15px;
+}
+
+.control-panel {
+  width: 604px;
+  border-bottom: 2px solid #d9d9d9;
+  border-radius: 6px 6px 0 0;
+  background-color: rgb(246, 246, 246);
+  margin: -16px -20px -16px -15px;
+  /* margin-left:auto; */
+  /* margin-right:auto; */
+  padding: 13px;
+}
+
+.save-button {
+  margin: 15px 15px 15px 15px;
+  color: green;
+}
+
+.button-box {
+  width: 630px;
+  height: 30px;
+  background-color: rgb(246, 246, 246);
+  border: 2px solid #d9d9d9;
+  border-radius: 0 0 6px 6px;
+  cursor: default;
+  margin: auto;
+  margin-top: -10px;
+}
+
+.button-box-button {
+  position: relative;
+  float: right;
+  bottom: -4px;
+  right: 10px;
+  margin-right: 10px;
+  background-color: #fff;
+  border: 1px solid grey;
+  border-radius: 4px;
+  padding: 2px 12px;
+  width: 90px;
+  box-shadow: 1px 1px grey;
+}
+
+.button-box-button:hover {
+  background-color: #f2f2f2;
+}
+
+.button-box-button:active {
+  background-color: #d9d9d9;
+}
+
+.code-button {
+  color: rgb(40,44,52);
+  margin-top: -20px;
+}
+
+.code-button:hover {
+  color: #008000;
+}
+
+
+
+
+/* ONLY MOBILE */
+
+@media only screen and (max-width: 650px) {
+  .RichEditor-root {
+    width: 300px;
   }
-  
+
   .RichEditor-editor {
-    /* border-top: 1px solid #ddd; */
-    cursor: text;
-    font-size: 16px;
-    margin-top: 10px;
+    border-top: 1px solid #ddd;
+    margin-top: 16px;
   }
-  
-  .RichEditor-editor .public-DraftEditorPlaceholder-root,
-  .RichEditor-editor .public-DraftEditor-content {
-    margin: 0 -15px -15px;
-    padding: 15px;
-  }
-  
-  .RichEditor-editor .public-DraftEditor-content {
-    min-height: 200px;
-  }
-  
-  .RichEditor-hidePlaceholder .public-DraftEditorPlaceholder-root {
-    display: none;
-  }
-  
-  .RichEditor-editor .RichEditor-blockquote {
-    border-left: 5px solid #eee;
-    color: #666;
-    font-family: 'Hoefler Text', 'Georgia', serif;
-    font-style: italic;
-    margin: 16px 0;
-    padding: 10px 20px;
-  }
-  
-  .RichEditor-editor .public-DraftStyleDefault-pre {
-    background-color: rgba(0, 0, 0, 0.05);
-    font-family: 'Inconsolata', 'Menlo', 'Consolas', monospace;
-    font-size: 16px;
-    padding: 20px;
-  }
-  
-  .RichEditor-controls {
-    font-family: 'Helvetica', sans-serif;
-    font-size: 14px;
-    margin-bottom: 5px;
-    user-select: none;
-    text-align:left;
-  }
-  
-  .RichEditor-styleButton {
-    color: #404040;
-    cursor: pointer;
-    margin-right: 16px;
-    padding: 2px 0;
-    display: inline-block;
-  }
-
-  .RichEditor-styleButton:hover {
-    color:#93b0ec;
-  }
-  
-  .RichEditor-activeButton {
-    color: #3c71dd;
-    font-weight: bold;
-  }
-  .RichEditor-activeButton:hover {
-    color:#6791e4;
-  }
-  .do-button {
-    position:relative;
-    float:right;
-    top:-25px;
-    margin-right: 10px;
-    color: #666;
+  .control-panel {
+    width: 300px;
     background-color: inherit;
-    border-radius: 7px;
-    border: none;
-    cursor: pointer;
+    border-radius: 0;
+    margin: -10px -20px -5px -15px;
+    border-bottom: none;
+  }
+  .show-html {
+    width: 300px;
   }
 
-  .show-html {
-    width: 600px;
-    /* text-align: center; */
-    margin: auto;
-    text-align: left;
+  .RichEditor-controls {
+    font-size: 20px;
+  }
+  .RichEditor-styleButton {
+    margin: 8px;
+  }
+
+  .do-button {
+    top: -3px;
+    /* background-color: green; */
   }
 
   .control-icon {
-    margin-bottom: -5px;
+    margin-bottom: -3px;
   }
 
   .control-icon-underline {
-    margin-bottom: -5px;
+    margin-bottom: -3px;
   }
 
-  .show-raw-html {
-    text-align: left;
-    margin-top: 15px;
-    margin-bottom: 15px;
-    border: 1px solid #ddd;
-    min-height: 100px;
-    white-space: pre-wrap;
-    font-size: 15px;
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;;
+  .button-box {
+    width: 330px;
+    height: 44px;
   }
 
-  #html-box {
-    margin-top: 15px;
-    margin-bottom: 15px;
+  .button-box-button {
+    font-size: 14px;
+    padding: 6px 12px;
+    margin-top: 2px;
   }
 
-  .control-panel {
-    width:604px;
-    border-bottom:2px solid #d9d9d9;
-    border-radius: 6px 6px 0 0;
-    background-color: rgb(246, 246, 246);
-    margin: -16px -20px -16px -15px;
-    /* margin-left:auto; */
-    /* margin-right:auto; */
-    padding: 13px;
+}
+
+/* ONLY MOBILE */
+
+/* ONLY DESKTOP */
+
+@media only screen and (min-width: 650px) {
+
+  .code-button:hover {
+    -webkit-transform: scaleX(-1);
+    transform: scaleX(-1);
   }
+}
 
-  .save-button {
-    margin: 15px 15px 15px 15px;
-    color: green;
-  }
-  
-  @media only screen and (max-width: 650px) {
-    .RichEditor-root {
-      width: 300px;
-    }
-
-    .RichEditor-editor {
-      border-top: 1px solid #ddd;
-      margin-top: 16px;
-    }
-    .control-panel {
-      width: 300px;
-      background-color: inherit;
-      border-radius: 0;
-    margin: -10px -20px -5px -15px;
-    border-bottom: none;
-
-    }
-    .show-html {
-      width: 300px;
-    }
-
-    .RichEditor-controls {
-      font-size: 20px;
-    }
-    .RichEditor-styleButton {
-      margin: 8px;
-    }
-
-    .do-button {
-      top: -3px;
-      /* background-color: green; */
-    }
-
-    .control-icon {
-      margin-bottom: -3px;
-    }
-
-    .control-icon-underline {
-      margin-bottom: -3px;
-    }
-  }
+/* ONLY DESKTOP */

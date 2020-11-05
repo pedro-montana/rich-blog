@@ -5,7 +5,13 @@
 #para {
   text-align: left;
   margin:auto;
+  padding: 10px;
   width: 600px;
+}
+
+.show-para {
+  border: 2px solid grey;
+  border-radius: 10px;
 }
 
 code {

@@ -1,37 +1,31 @@
-import React, { useEffect, useState } from "react";
-import {
-  Editor,
-  EditorState,
-  getDefaultKeyBinding,
-  RichUtils,
-} from "draft-js";
+import React, { useEffect, useState, setState } from "react";
+import { Editor, EditorState, getDefaultKeyBinding, RichUtils } from "draft-js";
 import { stateToHTML } from "draft-js-export-html";
 import { stateFromHTML } from "draft-js-import-html";
 import { MdUndo, MdRedo } from "react-icons/md";
 import { GoListUnordered, GoListOrdered, GoBold } from "react-icons/go";
 import { FiItalic } from "react-icons/fi";
-import { BsTypeUnderline } from "react-icons/bs";
+import { BsTypeUnderline, BsCodeSlash } from "react-icons/bs";
 import { ImSpellCheck } from "react-icons/im";
 
 import "draft-js/dist/Draft.css";
 import "./RichText.css";
 
 var initialDraft;
-if (document.getElementById("para") != null){
-initialDraft = document.getElementById("para").firstElementChild.innerHTML;
-}
-else if (initialDraft = localStorage.getItem("unsavedDraft") != null)
-{
+if (document.getElementById("para") != null) {
+  initialDraft = document.getElementById("para").firstElementChild.innerHTML;
+} else if ((initialDraft = localStorage.getItem("unsavedDraft") != null)) {
   initialDraft = localStorage.getItem("unsavedDraft");
-}
-else {
+} else {
   initialDraft = "<p><br></p>";
 }
 
 class RichTextEditor extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { editorState: EditorState.createWithContent(stateFromHTML(initialDraft)) };
+    this.state = {
+      editorState: EditorState.createWithContent(stateFromHTML(initialDraft)),
+    };
 
     this.focus = () => this.refs.editor.focus();
     this.onChange = (editorState) => this.setState({ editorState });
@@ -84,7 +78,6 @@ class RichTextEditor extends React.Component {
     this.onChange(EditorState.redo(this.state.editorState));
   }
 
-
   render() {
     const { editorState } = this.state;
 
@@ -100,49 +93,42 @@ class RichTextEditor extends React.Component {
 
     let html = stateToHTML(contentState);
 
-      localStorage.setItem("unsavedDraft", html);
+    localStorage.setItem("unsavedDraft", html);
 
-      function HasID () {
-      // let myDraft;
-      // for (var j = 0; j < 200; j++) {
-      //   myDraft = localStorage.getItem(`currentDraft` + j);
-      //   if (myDraft == null) {
-      //        localStorage.setItem(`currentDraft` + j, html);
-      //        console.log("saving Draft: " + localStorage.getItem(`currentDraft` + j));
-      //        localStorage.setItem("unsavedDraft", localStorage.getItem(`currentDraft` + j));
-      //        localStorage.setItem("savedDraft", localStorage.getItem(`currentDraft` + j));
-      //        window.location.reload();
-      //        break;
-      //   }
-      // }
+    function HasID() {
       localStorage.setItem("savedDraft", html);
       window.location.reload();
-
     }
-
     return (
-      <>
-        {/* <WholeArticle /> */}
-        <button className="save-button" onClick={HasID}>OK</button>
+      <div>
+        {/* <button className="save-button" onClick={HasID}>OK</button> */}
         <div className="RichEditor-root">
           <div className="control-panel">
-          <BlockStyleControls
-            editorState={editorState}
-            onToggle={this.toggleBlockType}
-          />
-          <InlineStyleControls
-            editorState={editorState}
-            onToggle={this.toggleInlineStyle}
-          />
-          <button className="do-button" onClick={this.onClickRe.bind(this)} title="Redo">
-            <MdRedo size="20" />
-          </button>
-          <button className="do-button" onClick={this.onClickUn.bind(this)} title="Undo">
-            <MdUndo size="20" />
-          </button>
-          <button className="do-button" style={{color:"black"}}>
-            <ImSpellCheck size="20" />
-          </button>
+            <BlockStyleControls
+              editorState={editorState}
+              onToggle={this.toggleBlockType}
+            />
+            <InlineStyleControls
+              editorState={editorState}
+              onToggle={this.toggleInlineStyle}
+            />
+            <button
+              className="do-button"
+              onClick={this.onClickRe.bind(this)}
+              title="Redo"
+            >
+              <MdRedo size="20" />
+            </button>
+            <button
+              className="do-button"
+              onClick={this.onClickUn.bind(this)}
+              title="Undo"
+            >
+              <MdUndo size="20" />
+            </button>
+            <button className="do-button" style={{ color: "black" }}>
+              <ImSpellCheck size="20" />
+            </button>
           </div>
           <div className={className} onClick={this.focus}>
             <Editor
@@ -156,12 +142,15 @@ class RichTextEditor extends React.Component {
               ref="editor"
               spellCheck={false}
             />
-          <button style={{position:"relative", float:"right", bottom:"-20px"}} onClick={HasID}>OK</button>
-
           </div>
         </div>
-      <ShowMeHTML inp={html} />
-      </>
+        <BottomButtons
+          whenClickedOK={HasID}
+          whenClickedCancel={this.props.clickCancel}
+        />
+        <br />
+        <ShowMeHTML inp={html} />
+      </div>
     );
   }
 }
@@ -201,7 +190,11 @@ class StyleButton extends React.Component {
     }
 
     return (
-      <span className={className} onMouseDown={this.onToggle} title={this.props.buttonTitle}>
+      <span
+        className={className}
+        onMouseDown={this.onToggle}
+        title={this.props.buttonTitle}
+      >
         {this.props.label}
       </span>
     );
@@ -216,8 +209,16 @@ const BLOCK_TYPES = [
   { label: "H4", style: "header-four" },
   { label: "H5", style: "header-five" },
   { label: "H6", style: "header-six" },
-  { label: <GoListUnordered className="control-icon" size="18" />, style: "unordered-list-item", key: "Bulleted list, indent with Tab" },
-  { label: <GoListOrdered className="control-icon" size="18" />, style: "ordered-list-item", key: "Ordered list, indent with Tab" },
+  {
+    label: <GoListUnordered className="control-icon" size="18" />,
+    style: "unordered-list-item",
+    key: "Bulleted list, indent with Tab",
+  },
+  {
+    label: <GoListOrdered className="control-icon" size="18" />,
+    style: "ordered-list-item",
+    key: "Ordered list, indent with Tab",
+  },
   { label: "Blockquote", style: "blockquote" },
   { label: "Code", style: "code-block" },
 ];
@@ -247,9 +248,21 @@ const BlockStyleControls = (props) => {
 };
 
 var INLINE_STYLES = [
-  { label: <GoBold className="control-icon" size="18" />, style: "BOLD", key: "Bold" },
-  { label: <FiItalic className="control-icon" size="18" />, style: "ITALIC", key: "Italic" },
-  { label: <BsTypeUnderline className="control-icon-underline" size="20" />, style: "UNDERLINE", key: "Underline" },
+  {
+    label: <GoBold className="control-icon" size="18" />,
+    style: "BOLD",
+    key: "Bold",
+  },
+  {
+    label: <FiItalic className="control-icon" size="18" />,
+    style: "ITALIC",
+    key: "Italic",
+  },
+  {
+    label: <BsTypeUnderline className="control-icon-underline" size="20" />,
+    style: "UNDERLINE",
+    key: "Underline",
+  },
   { label: "Monospace", style: "CODE" },
 ];
 
@@ -272,15 +285,38 @@ const InlineStyleControls = (props) => {
   );
 };
 
-function ShowMeHTML (props) {
+function ShowMeHTML(props) {
   const [isShow, setShow] = useState(false);
 
-  return (<div id="html-box">
-        <button onClick={() => !isShow ? setShow(true) : setShow(false)}>{!isShow ? "Show HTML code" : "Hide HTML code"}</button>
-        <div id="raw-html" className="show-html show-raw-html" inp={props.inp} contenteditable="true">{isShow ? props.inp : null}</div>
+  return (<>
+      <BsCodeSlash size="25" className="code-button" title="HTML Code" onClick={() => (!isShow ? setShow(true) : setShow(false))} />
+    <div id="html-box">
+      {isShow ? (
+        <div
+          id="raw-html"
+          className="show-html show-raw-html"
+          inp={props.inp}
+          contenteditable="true"
+        >
+          {isShow ? props.inp : null}
         </div>
+      ) : null}
+    </div>
+    </>
   );
 }
 
+function BottomButtons(props) {
+  return (
+    <div className="button-box">
+      <button className="button-box-button" onClick={props.whenClickedOK}>
+        OK
+      </button>
+      <button className="button-box-button" onClick={props.whenClickedCancel}>
+        CANCEL
+      </button>
+    </div>
+  );
+}
 
 export default RichTextEditor;
