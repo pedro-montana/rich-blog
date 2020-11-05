@@ -14,6 +14,7 @@ function App() {
     }
   }, []);
   return (
+    <>
     <div className="App">
       {isEditor ? (
         <div dangerouslySetInnerHTML={{ __html: RichTextEditor.html }}></div>
@@ -43,6 +44,8 @@ function App() {
       : null
     }
     </div>
+    <div style={{textAlign:"center"}}>© 2020 Petr Horáček</div>
+    </>
   );
 }
 
