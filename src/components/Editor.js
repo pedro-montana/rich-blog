@@ -78,6 +78,12 @@ class RichTextEditor extends React.Component {
     this.onChange(EditorState.redo(this.state.editorState));
   }
 
+  LastSave() {
+    this.setState( {
+      editorState: EditorState.createWithContent(stateFromHTML(localStorage.getItem("savedDraft"))),
+    });
+  }
+
   render() {
     const { editorState } = this.state;
 
@@ -99,6 +105,7 @@ class RichTextEditor extends React.Component {
       localStorage.setItem("savedDraft", html);
       window.location.reload();
     }
+
     return (
       <div>
         {/* <button className="save-button" onClick={HasID}>OK</button> */}
@@ -126,11 +133,11 @@ class RichTextEditor extends React.Component {
             >
               <MdUndo size="20" />
             </button>
-            <button className="do-button" style={{ color: "black" }}>
-              <ImSpellCheck size="20" />
-            </button>
+            <span title="Load saved document" className="RichEditor-styleButton do-button" onClick={this.LastSave.bind(this)}>
+              <b>LAST SAVE</b>
+            </span>
           </div>
-          <div className={className} onClick={this.focus}>
+          <div id="editor-window" className={className} onClick={this.focus}>
             <Editor
               blockStyleFn={getBlockStyle}
               customStyleMap={styleMap}
@@ -289,7 +296,7 @@ function ShowMeHTML(props) {
   const [isShow, setShow] = useState(false);
 
   return (<>
-      <BsCodeSlash size="25" className="code-button" title="HTML Code" onClick={() => (!isShow ? setShow(true) : setShow(false))} />
+      <a id="code" href={!isShow ? "#top" : "#code"}><BsCodeSlash size="25" className="code-button" title="HTML Code" onClick={() => (!isShow ? setShow(true) : setShow(false))} /></a>
     <div id="html-box">
       {isShow ? (
         <div

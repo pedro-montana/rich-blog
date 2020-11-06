@@ -15,11 +15,18 @@ button {
   margin: auto;
 }
 
+#editor-window {
+  width: 614px;
+  overflow-y: auto;
+  overflow-x:hidden;
+}
+
 .RichEditor-editor {
   /* border-top: 1px solid #ddd; */
   cursor: text;
   font-size: 16px;
   margin-top: 10px;
+  padding-bottom: 10px;
 }
 
 .RichEditor-editor .public-DraftEditorPlaceholder-root,
@@ -30,6 +37,7 @@ button {
 
 .RichEditor-editor .public-DraftEditor-content {
   min-height: 200px;
+  max-height: 400px;
 }
 
 .RichEditor-hidePlaceholder .public-DraftEditorPlaceholder-root {
@@ -244,6 +252,10 @@ button {
     font-size: 14px;
     padding: 6px 12px;
     margin-top: 2px;
+  }
+
+  #editor-window {
+    width: 308px;
   }
 
 }

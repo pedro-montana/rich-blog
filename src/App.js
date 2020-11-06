@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import "./App.css";
 import RichTextEditor from "./components/Editor";
+import UpButton from "./components/UpButton";
 
 function App() {
   const [isEditor, setEditor] = useState(false);
@@ -13,13 +14,19 @@ function App() {
       setFirst(false);
     }
   }, []);
+
+  function DeleteParagraph() {
+    if(window.confirm("Are you sure about deleting?")) {
+    (localStorage.setItem("savedDraft", ""));(localStorage.setItem("unsavedDraft", ""));window.location.reload();
+    } 
+  }
   return (
     <>
     <div className="App">
-      {isEditor ? (
+      {isEditor ? (<>
+      <h6>Editor</h6>
         <div dangerouslySetInnerHTML={{ __html: RichTextEditor.html }}></div>
-      ) : null}
-      <h1>Editor</h1>
+      </>) : <h6>My Blog</h6>}
       <button
         className="edit-paragraph-button"
         style={isEditor ? { display: "none" } : null}
@@ -40,11 +47,12 @@ function App() {
 
       {isEditor ? <RichTextEditor clickCancel={() => setEditor(false)} /> : null}
       {!isFirst ?
-      <button onClick={() => {(localStorage.setItem("savedDraft", ""));(localStorage.setItem("unsavedDraft", ""));window.location.reload()}}>DELETE PARAGRAPH</button>
+      <button className="delete-paragraph" onClick={DeleteParagraph}>DELETE PARAGRAPH</button>
       : null
     }
     </div>
     <div style={{textAlign:"center"}}>© 2020 Petr Horáček</div>
+    <UpButton />
     </>
   );
 }
