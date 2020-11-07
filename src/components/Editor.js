@@ -6,7 +6,6 @@ import { MdUndo, MdRedo } from "react-icons/md";
 import { GoListUnordered, GoListOrdered, GoBold } from "react-icons/go";
 import { FiItalic } from "react-icons/fi";
 import { BsTypeUnderline, BsCodeSlash } from "react-icons/bs";
-import { ImSpellCheck } from "react-icons/im";
 
 import "draft-js/dist/Draft.css";
 import "./RichText.css";
@@ -98,7 +97,6 @@ class RichTextEditor extends React.Component {
     }
 
     let html = stateToHTML(contentState);
-
     localStorage.setItem("unsavedDraft", html);
 
     function HasID() {
@@ -210,12 +208,12 @@ class StyleButton extends React.Component {
 
 const BLOCK_TYPES = [
   { label: "P", style: "paragraph" },
-  { label: "H1", style: "header-one" },
+  { label: "H1", style: "header-one", key: "H1, only use for main heading" },
   { label: "H2", style: "header-two" },
   { label: "H3", style: "header-three" },
   { label: "H4", style: "header-four" },
   { label: "H5", style: "header-five" },
-  { label: "H6", style: "header-six" },
+  // { label: "H6", style: "header-six" },
   {
     label: <GoListUnordered className="control-icon" size="18" />,
     style: "unordered-list-item",
@@ -319,9 +317,9 @@ function BottomButtons(props) {
       <button className="button-box-button" onClick={props.whenClickedOK}>
         OK
       </button>
-      <button className="button-box-button" onClick={props.whenClickedCancel}>
+      <a href="#top"><button className="button-box-button" onClick={props.whenClickedCancel}>
         CANCEL
-      </button>
+      </button></a>
     </div>
   );
 }

@@ -1,5 +1,8 @@
 .App {
   text-align: center;
+  margin: auto;
+  max-width: 800px;
+  min-width: 310px;
 }
 
 
@@ -12,6 +15,9 @@ h6 {
   margin-inline-end: 0px;
   font-weight: 300!important;
   text-transform: uppercase;
+  margin-left: auto;
+  margin-right: auto;
+  border-bottom: 1px solid black;
 }
 
 h1, h2, h3, h4, h5 {
@@ -34,7 +40,7 @@ p {
 a {
   text-decoration: none;
   font-weight: 500;
-  color: blue;
+  color: #0b0080;
 }
 
 
@@ -49,9 +55,6 @@ a {
 
 }
 
-code {
-  white-space: pre;
-}
 
 .edit-paragraph-button {
   margin: 15px 15px 15px 15px;
@@ -90,4 +93,9 @@ code {
 
 .delete-paragraph {
   color: red;
+}
+
+.thumbnail {
+  text-decoration: none;
+  color: initial;
 }
