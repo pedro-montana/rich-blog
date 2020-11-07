@@ -6,7 +6,7 @@ function Homepage() {
 
   return (<>
   <ArticleThumbnails />
-  <div style={{textAlign:"center"}}>© 2020 Petr Horáček</div>
+  <div style={{textAlign:"center"}}><a href="https://github.com/pedro-montana/rich-blog" target="_blank" rel="noopener noreferrer">© 2020 Petr Horáček</a></div>
   </>
   );
 }

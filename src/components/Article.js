@@ -49,9 +49,10 @@ function Article() {
     if (window.confirm("Are you sure about deleting?")) {
       localStorage.setItem("savedDraft", "");
       localStorage.setItem("unsavedDraft", "");
-      window.location.reload();
+      window.location.assign("https://rich-text-blog.netlify.app");
     }
   }
+
   return (
     <>
       {isEditor ? (
@@ -86,7 +87,7 @@ function Article() {
         </button>
       ) : null}
       <div style={{ textAlign: "center" }}>
-        <br />© 2020 Petr Horáček
+        <br /><a href="https://github.com/pedro-montana/rich-blog" target="_blank" rel="noopener noreferrer">© 2020 Petr Horáček</a>
       </div>
     </>
   );
